@@ -79,6 +79,9 @@ func encodeHtml(zipReader *zip.ReadCloser, zipWriter *zip.Writer, path string) {
 	}
 	print(number)
 	file.Close()
+	
+	// Encode the bytes as UTF-8
+	utf8Contents := encodeAsUTF8(contents)
 
 	// Open a writer
 	fileWriter, err := zipWriter.Create(path)
@@ -87,7 +90,7 @@ func encodeHtml(zipReader *zip.ReadCloser, zipWriter *zip.Writer, path string) {
 	}
 
 	// Write the bytes to the file
-	fileWriter.Write(contents)
+	fileWriter.Write(utf8Contents)
 }
 
 func convertToZip(epubPath string) string {
@@ -124,4 +127,10 @@ func _convertFileTo(path string, new string, delete bool) string {
 	}
 
 	return newPath
+}
+
+// Convert []byte to UTF-8 []byte
+func encodeAsUTF8(data []byte) []byte {
+	s := strings.ToValidUTF8(string(data), "")
+	return []byte(s)
 }
