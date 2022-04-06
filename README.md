@@ -6,7 +6,7 @@ That's why I created this script.
 
 ## Usage
 
-``` go run change_epub.go path/to/epub.epub ```
+` go run change_epub.go path/to/epub.epub `
 
 ## Result
 
